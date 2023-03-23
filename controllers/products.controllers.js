@@ -1,6 +1,7 @@
 exports.findAllProducts = (req, res) => {
   const { requesTime } = req;
-  res.json({
+
+  res.status().json({
     requesTime,
   });
 };
