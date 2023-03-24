@@ -1,18 +1,7 @@
 const express = require('express');
 
 const productsController = require('../controllers/products.controllers');
-
-const validProducts = (req, res, next) => {
-  const { name, price, quantity } = req.body;
-
-  if (!name) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'the name is required',
-    });
-  }
-  next();
-};
+const productsMiddleware = require('../middlewares/products.middleware');
 
 const router = express.Router();
 
@@ -20,14 +9,17 @@ router
   .route('/')
   .get(productsController.findAllProducts)
   .post(
-    validProducts,
+    productsMiddleware.validProducts,
     productsController.createProduct
   );
 
 router
   .route('/:id')
   .get(productsController.findOneProducts)
-  .patch(productsController.updateProduct)
+  .patch(
+    productsMiddleware.validProducts,
+    productsController.updateProduct
+  )
   .delete(productsController.deleteProduct);
 
 module.exports = router;

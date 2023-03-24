@@ -4,19 +4,12 @@ const morgan = require('morgan');
 
 const productsRoutes = require('./routes/products.route');
 
-//iniciamos la aplicacion en la variable app
 const app = express();
 
+//!MIDDLEWARES
 app.use(morgan('dev'));
-
 app.use(express.json());
 
-app.use((req, res, next) => {
-  console.log('hello from de middleware');
-  next();
-});
-
-//CREAR UN MIDDLEWARE
 app.use((req, res, next) => {
   req.requesTime = new Date();
   next();
