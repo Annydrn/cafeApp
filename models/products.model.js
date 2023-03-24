@@ -12,6 +12,10 @@ const Product = db.define('products', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  ingredients: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
   image: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -28,7 +32,7 @@ const Product = db.define('products', {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
-  descrption: {
+  description: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
