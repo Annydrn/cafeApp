@@ -1,52 +1,27 @@
-//solicitamos express que es la libreria con la que vamos a trabajar
+//aca llamaremos las paqueterias que vamos a utilizar
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 
 const productsRoutes = require('./routes/products.route');
 
+//inicializar aplicacion
 const app = express();
 
 //!MIDDLEWARES
+//los middleware es una funcion y siempre llevan .use
 app.use(morgan('dev'));
-app.use(express.json());
+app.use(express.json()); //este middlaware es para que el cliente me pueda enviar informacion en objeto json
+app.use(cors());
 
 app.use((req, res, next) => {
   req.requesTime = new Date();
   next();
 });
-// A ESE MIDDLEWARE VAN A ADJUNTARLE ALOBJETO REQ UNA PROPIEDAD LLAMADA
-//REQUESTIME Y LE AGREGARAN LA FECHA ACTUAL CON NEW DATE()
-// FINDALLPRODUCTS VANA DESESTRUCTURAR DE LA REQ LA PROPIEDAD REQUESTIME
-//ENVIAR POR RES
-
-//creamos una ruta del servidor
-
-//app.get('/api/v1/products',findAllProducts) ;
-//app.post('/api/v1/products',createProduct);
-
-//app.get("/api/v1/products/:id", findOneProduct);
-//app.patch("/api/v1/products/id", updateProduct );
-//app.delete("/api/v1/products/:id", deleteProduct );
 
 //!ROUTES
 app.use('/api/v1/products', productsRoutes);
 
-//crear nueva destructuracion de objeto
-// const obj = {
-//   prop1: 'propiedad 1',
-//   prop2: 'propiedad 2',
-//   prop3: 'propiedad 3',
-// };
-
-//agregar una nueva propiedad
-// obj.prop4 = 'propiedad 4';
-
-//desestructurar una propiedad
-// const { prop2 } = obj;
-
-// console.log(prop2);
-
-//colocar a la aplicacion a escuchar por el puerto 3000
-
 //!EXPORTS
+//voy a exportar app
 module.exports = app;
